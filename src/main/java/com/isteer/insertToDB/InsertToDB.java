@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.isteer.dbConnections.DbConnections;
+
+
+
 /**
  * Servlet implementation class InsertToDB
  */
@@ -28,11 +32,9 @@ public class InsertToDB extends HttpServlet {
 		int salary=Integer.parseInt(request.getParameter("salary"));
 		try
 		{
-			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("driver Loaded sucessfully");
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/database1","root","root");
-			System.out.println("Connection established successfully");
-			PreparedStatement pst=con.prepareStatement("insert into employee_details values(?,?,?,?)");
+
+			Connection con = DbConnections.getConnection();
+			PreparedStatement pst=con.prepareStatement("insert into employee_details values( ,?,?,?,?)");
 			pst.setString(1, ename);
 			pst.setInt(2, eid);
 			pst.setString(3,location);
